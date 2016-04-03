@@ -1,8 +1,9 @@
-package ch.helin.messages;
+package ch.helin.messages.experimental;
 
 /**
- * Created by Martin Stypinski on 02.04.16.
+ * @author Martin Stypinski ( mstypinski@gmail.com ) on 02.04.16.
  */
+
 public class MySimpleMessage {
     private String raw;
 
