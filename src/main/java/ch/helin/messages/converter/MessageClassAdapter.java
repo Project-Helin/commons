@@ -1,6 +1,9 @@
 package ch.helin.messages.converter;
 
+import ch.helin.messages.commons.AssertUtils;
 import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.PayloadType;
+import ch.helin.messages.dto.ProtocolType;
 import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +29,14 @@ public class MessageClassAdapter implements JsonDeserializer<Message> {
 
         JsonObject wholeJsonObject = json.getAsJsonObject();
 
-        JsonElement messageTypePlain = wholeJsonObject.get("messageType");
-        JsonElement eventTypePlain   = wholeJsonObject.get("eventType");
+        JsonElement protocolTypePlain = wholeJsonObject.get("protocolType");
+        JsonElement payloadTypePlain  = wholeJsonObject.get("payloadType");
 
 
-        MessageType messageType = context.deserialize(messageTypePlain, MessageType.class);
-        EventType eventType = context.deserialize(eventTypePlain, EventType.class);
+        ProtocolType protocolType = context.deserialize(protocolTypePlain, ProtocolType.class);
+        PayloadType payloadType = context.deserialize(payloadTypePlain, PayloadType.class);
 
-        Class<?> aClass = findClassBy(messageType, eventType);
+        Class<?> aClass = findClassBy(protocolType, payloadType);
 
         Message dematerializedMessage =
                 context.deserialize(wholeJsonObject, aClass);
@@ -44,16 +47,16 @@ public class MessageClassAdapter implements JsonDeserializer<Message> {
     /**
      * @throws CouldNotParseJsonException if no class could be found
      */
-    private Class<?> findClassBy(MessageType messageType, EventType eventType)
+    private Class<?> findClassBy(ProtocolType protocolType, PayloadType payloadType)
             throws CouldNotParseJsonException {
 
-        AssertUtils.throwExceptionIfNull(messageType, "MessageType is mandatory.");
-        AssertUtils.throwExceptionIfNull(eventType,   "EventType is mandatory.");
+        AssertUtils.throwExceptionIfNull(protocolType, "ProtocolType is mandatory.");
+        AssertUtils.throwExceptionIfNull(payloadType,   "PayloadType is mandatory.");
 
-        Class<?> foundClass = classObjectContainer.findBy(messageType, eventType);
+        Class<?> foundClass = classObjectContainer.findBy(protocolType, payloadType);
 
         if (foundClass == null) {
-            LOGGER.warn("Given MessageType: {} and EventType: {}", messageType, eventType);
+            LOGGER.warn("Given MessageType: {} and EventType: {}", protocolType, payloadType);
             throw new NullPointerException("No class found for given MessageType and EventType");
         }
 

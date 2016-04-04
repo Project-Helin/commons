@@ -1,11 +1,18 @@
 package ch.helin.messages.converter;
 
+import ch.helin.messages.dto.HTTP.HTTPMessage;
+import ch.helin.messages.dto.HTTP.HTTPRequestMessage;
+import ch.helin.messages.dto.HTTP.HTTPResponseMessage;
+import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.PayloadType;
+import ch.helin.messages.dto.ProtocolType;
 import ch.hsr.blox.commons.message.EventType;
 import ch.hsr.blox.commons.message.Message;
 import ch.hsr.blox.commons.message.MessageType;
 import ch.hsr.blox.commons.message.broadcast.Broadcast;
 import ch.hsr.blox.commons.message.request.Request;
 import ch.hsr.blox.commons.message.response.Response;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -17,24 +24,25 @@ import java.util.*;
 /**
  * This class contains all the mapping from messageType to eventType to Class.
  *
- * @author Kirusanth Poopalasingam ( pkirusnath@gmail.com ) & Martin Stypinski ( mstypinski@gmail.com )
+ * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com ) & Martin Stypinski ( mstypinski@gmail.com )
  */
 public class MessageClassObjectContainer {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(MessageClassObjectContainer.class);
 
-    private Map<MessageType, Map<EventType, Class<?>>> messageTypeToEventTypeToClassMap;
+    private Map<ProtocolType, Map<PayloadType, Class<?>>> messageTypeToProtocolType;
 
     public MessageClassObjectContainer() {
-        messageTypeToEventTypeToClassMap = new EnumMap<>(MessageType.class);
+        messageTypeToProtocolType = new EnumMap<>(ProtocolType.class);
 
-        addAllDerivedClassesToMap(Request.class, MessageType.Request);
-        addAllDerivedClassesToMap(Response.class, MessageType.Response);
-        addAllDerivedClassesToMap(Broadcast.class, MessageType.Broadcast);
+        addAllDerivedClassesToMap(HTTPMessage.class, ProtocolType.HTTP);
+        addAllDerivedClassesToMap(HTTPRequestMessage.class, ProtocolType.HTTP_REQUEST);
+        addAllDerivedClassesToMap(HTTPResponseMessage.class, ProtocolType.HTTP_RESPONSE);
+
     }
 
     private void addAllDerivedClassesToMap(Class<? extends Message> requestClass,
-                                           MessageType messageType) {
+                                           ProtocolType protocolType) {
 
         List<Class<?>> foundClasses =
                 findAllDerivedClassesOf(requestClass);
@@ -85,6 +93,9 @@ public class MessageClassObjectContainer {
     }
 
     private List<Class<?>> findAllDerivedClassesOf(Class<?> requestClass){
+        Reflections reflections = new Reflections("com.helin.messages.dto");
+        Set<Class<? extends Message>> classes = reflections.getSubTypesOf(requestClass.class);
+
         Set<BeanDefinition> beanDefinitions = findAllBeanDefinitions(requestClass);
 
         List<Class<?>> classes = new ArrayList<>(beanDefinitions.size());
@@ -124,8 +135,10 @@ public class MessageClassObjectContainer {
 
     /**
      * @return null if nothing found
+     * @param messageType
+     * @param eventType
      */
-    public Class<?> findBy(MessageType messageType, EventType eventType) {
+    public Class<?> findBy(ProtocolType messageType, PayloadType eventType) {
         Map<EventType, Class<?>> eventTypeToClass =
                 messageTypeToEventTypeToClassMap.get(messageType);
 
