@@ -20,4 +20,35 @@ public class GpsStateMessage extends RMQBroadcastMessage {
     }
 
 
+    public int getFixType() {
+        return fixType;
+    }
+
+    public void setFixType(int fixType) {
+        this.fixType = fixType;
+    }
+
+    public int getSatellitesCount() {
+        return satellitesCount;
+    }
+
+    public void setSatellitesCount(int satellitesCount) {
+        this.satellitesCount = satellitesCount;
+    }
+
+    public double getPosLat() {
+        return posLat;
+    }
+
+    public void setPosLat(double posLat) {
+        this.posLat = posLat;
+    }
+
+    public double getPosLon() {
+        return posLon;
+    }
+
+    public void setPosLon(double posLon) {
+        this.posLon = posLon;
+    }
 }

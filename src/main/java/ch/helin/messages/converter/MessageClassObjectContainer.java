@@ -6,18 +6,9 @@ import ch.helin.messages.dto.HTTP.HTTPResponseMessage;
 import ch.helin.messages.dto.Message;
 import ch.helin.messages.dto.PayloadType;
 import ch.helin.messages.dto.ProtocolType;
-import ch.hsr.blox.commons.message.EventType;
-import ch.hsr.blox.commons.message.Message;
-import ch.hsr.blox.commons.message.MessageType;
-import ch.hsr.blox.commons.message.broadcast.Broadcast;
-import ch.hsr.blox.commons.message.request.Request;
-import ch.hsr.blox.commons.message.response.Response;
-import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AssignableTypeFilter;
+
 
 import java.util.*;
 
@@ -35,28 +26,48 @@ public class MessageClassObjectContainer {
     public MessageClassObjectContainer() {
         messageTypeToProtocolType = new EnumMap<>(ProtocolType.class);
 
-        addAllDerivedClassesToMap(HTTPMessage.class, ProtocolType.HTTP);
-        addAllDerivedClassesToMap(HTTPRequestMessage.class, ProtocolType.HTTP_REQUEST);
-        addAllDerivedClassesToMap(HTTPResponseMessage.class, ProtocolType.HTTP_RESPONSE);
+           addAllDerivedClassesToMap(HTTPMessage.class, ProtocolType.HTTP);
+           addAllDerivedClassesToMap(HTTPRequestMessage.class, ProtocolType.HTTP_REQUEST);
+           addAllDerivedClassesToMap(HTTPResponseMessage.class, ProtocolType.HTTP_RESPONSE);
 
     }
 
     private void addAllDerivedClassesToMap(Class<? extends Message> requestClass,
                                            ProtocolType protocolType) {
 
+
         List<Class<?>> foundClasses =
                 findAllDerivedClassesOf(requestClass);
 
-        Map<EventType, Class<?>> eventTypeToClassMap =
-                buildEventTypeToClassMap(messageType, foundClasses);
+        Map<ProtocolType, Class<?>> payloadTypeToClassMap =
+                buildPayloadTypeToClassMap(protocolType, foundClasses);
 
-        messageTypeToEventTypeToClassMap.put(messageType, eventTypeToClassMap);
+        messageTypeToProtocolType.put(protocolType, payloadTypeToClassMap);
 
         if (LOGGER.isTraceEnabled()) {
             logInternalClassMap();
         }
+
     }
 
+    private Map<PayloadType, Class<?>> buildPayloadTypeToClassMap(PayloadType expectedPayloadType,
+                                                                  List<Class<?>> foundClasses){
+
+        Map<PayloadType, Class<?>> payloadTypeToClass = new EnumMap<>(PayloadType.class);
+        for(Class<?> eachClass: foundClasses){
+            Message anInstace = createAnInstance(eachClass);
+            PayloadType payloadType = anInstace.getPayloadType();
+
+            payloadTypeToClass.put(payloadType, eachClass);
+        }
+
+        //Todo: Schönwetter case ausbaden :)
+
+        return payloadTypeToClass;
+
+    }
+
+/*
     private Map<EventType, Class<?>> buildEventTypeToClassMap(MessageType expectedMessageType,
                                                               List<Class<?>> foundClasses) {
 
@@ -79,6 +90,7 @@ public class MessageClassObjectContainer {
 
         return eventTypeToClass;
     }
+*/
 
     private Message createAnInstance(Class<?> eachClass) {
         try {
@@ -121,6 +133,7 @@ public class MessageClassObjectContainer {
      * @param requestClass list of all classes wrapped around Springs
      *                     BeanDefinition
      */
+
     private Set<BeanDefinition> findAllBeanDefinitions(Class<?> requestClass) {
         boolean useDefaultFilter = false;
         ClassPathScanningCandidateComponentProvider classPathScanner =
@@ -133,11 +146,13 @@ public class MessageClassObjectContainer {
         return candidateComponents;
     }
 
+
     /**
      * @return null if nothing found
      * @param messageType
      * @param eventType
      */
+
     public Class<?> findBy(ProtocolType messageType, PayloadType eventType) {
         Map<EventType, Class<?>> eventTypeToClass =
                 messageTypeToEventTypeToClassMap.get(messageType);
