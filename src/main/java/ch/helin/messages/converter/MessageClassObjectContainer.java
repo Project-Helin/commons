@@ -3,17 +3,18 @@ package ch.helin.messages.converter;
 import ch.helin.messages.dto.Message;
 import ch.helin.messages.dto.MessageType;
 import ch.helin.messages.dto.PayloadType;
-import ch.helin.messages.dto.request.ConfigureAutopilotRequest;
 import ch.helin.messages.dto.request.Request;
 import ch.helin.messages.dto.response.Response;
 import ch.helin.messages.dto.state.State;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import io.github.lukehutch.fastclasspathscanner.matchprocessor.SubclassMatchProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains all the mapping from messageType to eventType to Class.
@@ -53,12 +54,12 @@ public class MessageClassObjectContainer {
     }
 
     private Map<PayloadType, Class<?>> buildPayloadTypeToClassMap(MessageType expectedMessageType,
-                                                              List<Class<?>> foundClasses) {
+                                                                  List<Class<?>> foundClasses) {
 
         Map<PayloadType, Class<?>> payloadTypeToClass = new EnumMap<>(PayloadType.class);
         for (Class<?> eachClass : foundClasses) {
 
-            Message anInstance  = createAnInstance(eachClass);
+            Message anInstance = createAnInstance(eachClass);
             PayloadType PayloadType = anInstance.getPayloadType();
 
             boolean isNotExpected = (anInstance.getMessageType() != expectedMessageType);
@@ -84,7 +85,7 @@ public class MessageClassObjectContainer {
         } catch (InstantiationException e) {
             throw new CouldNotParseJsonException(
                     "Failed to instantiate " + eachClass.getSimpleName() + ". This may be due to a missing empty-parameter constructor. " +
-                    "Please check if " + eachClass.getSimpleName() + " has an empty-constructor!" , e);
+                            "Please check if " + eachClass.getSimpleName() + " has an empty-constructor!", e);
         } catch (Exception e) {
             throw new CouldNotParseJsonException(
                     "Failed to create instance for: " + eachClass.getSimpleName(), e);
@@ -93,19 +94,27 @@ public class MessageClassObjectContainer {
 
     private List<Class<?>> findAllDerivedClassesOf(Class<?> requestClass) {
 
-        List<Class<?>> foundClasses = new ArrayList<>();
+        final List<Class<?>> foundClasses = new ArrayList<>();
+
+        /**
+         * Yeah - don't change this to lamda -> don't break the world!
+         */
+        SubclassMatchProcessor collector = new SubclassMatchProcessor() {
+            @Override
+            public void processMatch(Class matchingClass) {
+                foundClasses.add(matchingClass);
+            }
+        };
 
         /**
          * Scan  classpath to get all sub-classes of given class
          */
         new FastClasspathScanner("ch.helin")
-                .matchSubclassesOf(requestClass, foundClasses::add)
-                // .verbose()
-                .scan();
+                .matchSubclassesOf(requestClass, collector).scan();
 
-        foundClasses.stream().forEach((i) ->{
-            LOGGER.info("Found {} which is derived from {}" , i.getSimpleName(), requestClass.getSimpleName());
-        });
+        for (Class<?> i : foundClasses) {
+            LOGGER.info("Found {} which is derived from {}", i.getSimpleName(), requestClass.getSimpleName());
+        }
 
         return foundClasses;
     }
@@ -116,13 +125,13 @@ public class MessageClassObjectContainer {
      * @return null if nothing found
      */
 
-    public Class<?> findBy(MessageType messageType, PayloadType payloadType){
+    public Class<?> findBy(MessageType messageType, PayloadType payloadType) {
         Map<PayloadType, Class<?>> payloadTypeToClass =
                 messageTypeToProtocolType.get(messageType);
 
         Class<?> foundClass = payloadTypeToClass.get(payloadType);
 
-        if(foundClass == null){
+        if (foundClass == null) {
             throw new CouldNotParseJsonException("Could not find matching object to given messageType=" +
                     messageType + "& payloadTyp=" + payloadType + "!");
         }
