@@ -23,6 +23,10 @@ public class MessageClassObjectContainer {
 
     private Map<ProtocolType, Map<PayloadType, Class<?>>> messageTypeToProtocolType;
 
+    public Class<?> findBy(ProtocolType protocolType, PayloadType payloadType) {
+        return null;
+    }
+
 //    public MessageClassObjectContainer() {
 //        messageTypeToProtocolType = new EnumMap<>(ProtocolType.class);
 //
