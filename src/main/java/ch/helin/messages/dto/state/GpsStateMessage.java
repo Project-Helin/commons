@@ -49,4 +49,31 @@ public class GpsStateMessage extends State {
     public void setPosLon(double posLon) {
         this.posLon = posLon;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GpsStateMessage that = (GpsStateMessage) o;
+
+        if (fixType != that.fixType) return false;
+        if (satellitesCount != that.satellitesCount) return false;
+        if (Double.compare(that.posLat, posLat) != 0) return false;
+        return Double.compare(that.posLon, posLon) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = fixType;
+        result = 31 * result + satellitesCount;
+        temp = Double.doubleToLongBits(posLat);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(posLon);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

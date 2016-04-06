@@ -112,15 +112,21 @@ public class MessageClassObjectContainer {
 
     /**
      * @param messageType
-     * @param eventType
+     * @param payloadType
      * @return null if nothing found
      */
 
-    public Class<?> findBy(MessageType messageType, PayloadType eventType) {
-        Map<PayloadType, Class<?>> eventTypeToClass =
+    public Class<?> findBy(MessageType messageType, PayloadType payloadType){
+        Map<PayloadType, Class<?>> payloadTypeToClass =
                 messageTypeToProtocolType.get(messageType);
 
-        Class<?> foundClass = eventTypeToClass.get(eventType);
+        Class<?> foundClass = payloadTypeToClass.get(payloadType);
+
+        if(foundClass == null){
+            throw new CouldNotParseJsonException("Could not find matching object to given messageType=" +
+                    messageType + "& payloadTyp=" + payloadType + "!");
+        }
+
         return foundClass;
     }
 
