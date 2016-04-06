@@ -6,7 +6,7 @@ import ch.helin.messages.dto.RMQ.RMQBroadcastMessage;
 import ch.helin.messages.dto.RMQ.RMQMessage;
 
 /**
- * Created by styp on 03.04.16.
+ * @author Martin Stypinski ( mstypinski@gmail.com ) on 03.04.16.
  */
 public class GpsStateMessage extends RMQBroadcastMessage {
 
