@@ -1,12 +1,11 @@
-package ch.helin.messages.dto.RMQBroadcast;
+package ch.helin.messages.dto.state;
 
 import ch.helin.messages.dto.PayloadType;
-import ch.helin.messages.dto.RMQ.RMQBroadcastMessage;
 
 /**
  * @author Martin Stypinski ( mstypinski@gmail.com ) on 06.04.16.
  */
-public class DroneStateMessage extends RMQBroadcastMessage {
+public class DroneStateMessage extends State {
     private boolean isConnected;
     private boolean isGPSconnected;
 
@@ -17,7 +16,7 @@ public class DroneStateMessage extends RMQBroadcastMessage {
     private double targetAltitude;
     private String firmware;
 
-    public DroneStateMessage(PayloadType payloadType) {
+    public DroneStateMessage() {
         super(PayloadType.DroneState);
     }
 

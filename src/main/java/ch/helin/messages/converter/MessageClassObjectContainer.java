@@ -1,16 +1,19 @@
 package ch.helin.messages.converter;
 
-import ch.helin.messages.dto.HTTP.HTTPMessage;
-import ch.helin.messages.dto.HTTP.HTTPRequestMessage;
-import ch.helin.messages.dto.HTTP.HTTPResponseMessage;
 import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.MessageType;
 import ch.helin.messages.dto.PayloadType;
-import ch.helin.messages.dto.ProtocolType;
+import ch.helin.messages.dto.request.ConfigureAutopilotRequest;
+import ch.helin.messages.dto.request.Request;
+import ch.helin.messages.dto.response.Response;
+import ch.helin.messages.dto.state.State;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * This class contains all the mapping from messageType to eventType to Class.
@@ -21,28 +24,27 @@ public class MessageClassObjectContainer {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(MessageClassObjectContainer.class);
 
-    private Map<ProtocolType, Map<ProtocolType, Class<?>>> messageTypeToProtocolType;
+    private Map<MessageType, Map<PayloadType, Class<?>>> messageTypeToProtocolType;
 
     public MessageClassObjectContainer() {
-        messageTypeToProtocolType = new EnumMap<>(ProtocolType.class);
+        messageTypeToProtocolType = new EnumMap<>(MessageType.class);
 
-        addAllDerivedClassesToMap(HTTPMessage.class, ProtocolType.HTTP);
-        addAllDerivedClassesToMap(HTTPRequestMessage.class, ProtocolType.HTTP_REQUEST);
-        addAllDerivedClassesToMap(HTTPResponseMessage.class, ProtocolType.HTTP_RESPONSE);
-
+        addAllDerivedClassesToMap(Request.class, MessageType.Request);
+        addAllDerivedClassesToMap(Response.class, MessageType.Response);
+        addAllDerivedClassesToMap(State.class, MessageType.State);
     }
 
     private void addAllDerivedClassesToMap(Class<? extends Message> requestClass,
-                                           ProtocolType protocolType) {
+                                           MessageType messageType) {
 
 
         List<Class<?>> foundClasses =
                 findAllDerivedClassesOf(requestClass);
 
-        Map<ProtocolType, Class<?>> payloadTypeToClassMap =
-                buildPayloadTypeToClassMap(protocolType, foundClasses);
+        Map<PayloadType, Class<?>> payloadTypeToClassMap =
+                buildPayloadTypeToClassMap(messageType, foundClasses);
 
-        messageTypeToProtocolType.put(protocolType, payloadTypeToClassMap);
+        messageTypeToProtocolType.put(messageType, payloadTypeToClassMap);
 
         if (LOGGER.isTraceEnabled()) {
             logInternalClassMap();
@@ -50,32 +52,14 @@ public class MessageClassObjectContainer {
 
     }
 
-    private Map<ProtocolType, Class<?>> buildPayloadTypeToClassMap(ProtocolType expectedPayloadType,
-                                                                   List<Class<?>> foundClasses) {
-
-        Map<ProtocolType, Class<?>> payloadTypeToClass = new EnumMap<>(ProtocolType.class);
-        for (Class<?> eachClass : foundClasses) {
-            Message anInstace = createAnInstance(eachClass);
-            ProtocolType payloadType = anInstace.getProtocolType();
-
-            payloadTypeToClass.put(payloadType, eachClass);
-        }
-
-        //Todo: Schönwetter case ausbaden :)
-
-        return payloadTypeToClass;
-
-    }
-
-/*
-    private Map<EventType, Class<?>> buildEventTypeToClassMap(MessageType expectedMessageType,
+    private Map<PayloadType, Class<?>> buildPayloadTypeToClassMap(MessageType expectedMessageType,
                                                               List<Class<?>> foundClasses) {
 
-        Map<EventType, Class<?>> eventTypeToClass = new EnumMap<>(EventType.class);
+        Map<PayloadType, Class<?>> payloadTypeToClass = new EnumMap<>(PayloadType.class);
         for (Class<?> eachClass : foundClasses) {
 
             Message anInstance  = createAnInstance(eachClass);
-            EventType eventType = anInstance.getEventType();
+            PayloadType PayloadType = anInstance.getPayloadType();
 
             boolean isNotExpected = (anInstance.getMessageType() != expectedMessageType);
             if (isNotExpected) {
@@ -85,20 +69,11 @@ public class MessageClassObjectContainer {
                         expectedMessageType + " but not derived correctly");
             }
 
-            eventTypeToClass.put(eventType, eachClass);
+            payloadTypeToClass.put(PayloadType, eachClass);
         }
 
-        st<Class<?>> foundClasses = new ArrayList<>();
-
-        // c is a subclass of Widget or a descendant subclass.
-        // This lambda expression is of type SubclassMatchProcessor.
-        new FastClasspathScanner("ch.helin")
-                .matchSubclassesOf(requestClass, foundClasses::add);
-
-        foundClasses.stream().forEach(System.out::println);
-        return eventTypeToClass;
+        return payloadTypeToClass;
     }
-*/
 
     private Message createAnInstance(Class<?> eachClass) {
         try {
@@ -106,6 +81,10 @@ public class MessageClassObjectContainer {
             Message message = (Message) eachClass.newInstance();
             return message;
 
+        } catch (InstantiationException e) {
+            throw new CouldNotParseJsonException(
+                    "Failed to instantiate " + eachClass.getSimpleName() + ". This may be due to a missing empty-parameter constructor. " +
+                    "Please check if " + eachClass.getSimpleName() + " has an empty-constructor!" , e);
         } catch (Exception e) {
             throw new CouldNotParseJsonException(
                     "Failed to create instance for: " + eachClass.getSimpleName(), e);
@@ -124,7 +103,9 @@ public class MessageClassObjectContainer {
                 // .verbose()
                 .scan();
 
-        foundClasses.stream().forEach(System.out::println);
+        foundClasses.stream().forEach((i) ->{
+            LOGGER.info("Found {} which is derived from {}" , i.getSimpleName(), requestClass.getSimpleName());
+        });
 
         return foundClasses;
     }
@@ -135,8 +116,8 @@ public class MessageClassObjectContainer {
      * @return null if nothing found
      */
 
-    public Class<?> findBy(ProtocolType messageType, PayloadType eventType) {
-        Map<ProtocolType, Class<?>> eventTypeToClass =
+    public Class<?> findBy(MessageType messageType, PayloadType eventType) {
+        Map<PayloadType, Class<?>> eventTypeToClass =
                 messageTypeToProtocolType.get(messageType);
 
         Class<?> foundClass = eventTypeToClass.get(eventType);
@@ -144,17 +125,16 @@ public class MessageClassObjectContainer {
     }
 
     private void logInternalClassMap() {
-        for (Map.Entry<ProtocolType, Map<ProtocolType, Class<?>>> each :
+        for (Map.Entry<MessageType, Map<PayloadType, Class<?>>> each :
                 messageTypeToProtocolType.entrySet()) {
 
             LOGGER.info("Message Type {} has: ", each.getKey());
 
-            Map<ProtocolType, Class<?>> value = each.getValue();
-            for (Map.Entry<ProtocolType, Class<?>> eventTypes : value.entrySet()) {
+            Map<PayloadType, Class<?>> value = each.getValue();
+            for (Map.Entry<PayloadType, Class<?>> eventTypes : value.entrySet()) {
                 LOGGER.info("EventType {} to {}", eventTypes.getKey(),
                         eventTypes.getValue());
             }
         }
     }
-
 }

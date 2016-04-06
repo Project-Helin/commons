@@ -7,11 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public enum PayloadType {
-    @SerializedName("response")
-    Response,
-    @SerializedName("broadcast")
-    Broadcast,
-
 
     @SerializedName("GpsState")
     GpsState,
@@ -22,12 +17,14 @@ public enum PayloadType {
     @SerializedName("BatteryState")
     BatteryState,
 
-    @SerializedName("ConfigureAutopilotReq")
-    ConfigureAutopilotReq,
+    @SerializedName("ConfigureAutopilot")
+    ConfigureAutopilot,
 
-    @SerializedName("ConfigureAutopilotRsp")
-    ConfigureAutopilotRsp, ConfirmDeliveryReq, Goodbye;
+    @SerializedName("ConfirmDelivery")
+    ConfirmDelivery,
 
+    @SerializedName("G")
+    Goodbye;
 
 }
 

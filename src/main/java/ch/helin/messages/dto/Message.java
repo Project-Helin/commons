@@ -5,20 +5,12 @@ package ch.helin.messages.dto;
  */
 
 public class Message {
-    private ProtocolType protocolType;
     private PayloadType payloadType;
+    private MessageType messageType;
 
-    public Message(ProtocolType protocolType, PayloadType payloadType) {
-        this.protocolType = protocolType;
+    public Message(MessageType messageType, PayloadType payloadType) {
+        this.messageType = messageType;
         this.payloadType = payloadType;
-    }
-
-    public ProtocolType getProtocolType() {
-        return protocolType;
-    }
-
-    public void setProtocolType(ProtocolType protocolType) {
-        this.protocolType = protocolType;
     }
 
     public PayloadType getPayloadType() {
@@ -27,5 +19,13 @@ public class Message {
 
     public void setPayloadType(PayloadType payloadType) {
         this.payloadType = payloadType;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 }

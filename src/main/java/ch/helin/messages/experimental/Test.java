@@ -2,7 +2,7 @@ package ch.helin.messages.experimental;
 
 import ch.helin.messages.converter.JsonBasedMessageConverter;
 import ch.helin.messages.dto.Message;
-import ch.helin.messages.dto.RMQBroadcast.GpsStateMessage;
+import ch.helin.messages.dto.state.GpsStateMessage;
 
 /**
  * Created by styp on 04.04.16.

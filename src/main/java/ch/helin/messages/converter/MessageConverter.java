@@ -1,11 +1,6 @@
 package ch.helin.messages.converter;
 
-import ch.helin.messages.commons.AssertUtils;
 import ch.helin.messages.dto.Message;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com )

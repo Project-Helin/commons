@@ -1,12 +1,11 @@
-package ch.helin.messages.dto.RMQBroadcast;
+package ch.helin.messages.dto.state;
 
 import ch.helin.messages.dto.PayloadType;
-import ch.helin.messages.dto.RMQ.RMQBroadcastMessage;
 
 /**
  * @author Martin Stypinski ( mstypinski@gmail.com ) on 06.04.16.
  */
-public class BatteryStateMessage extends RMQBroadcastMessage{
+public class BatteryStateMessage extends State {
 
     private double voltage;
     private double remain;
@@ -14,7 +13,7 @@ public class BatteryStateMessage extends RMQBroadcastMessage{
     private double discharge;
 
 
-    public BatteryStateMessage(PayloadType payloadType) {
+    public BatteryStateMessage() {
         super(PayloadType.BatteryState);
     }
 

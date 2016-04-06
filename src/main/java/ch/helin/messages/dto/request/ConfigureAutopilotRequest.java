@@ -1,8 +1,7 @@
-package ch.helin.messages.dto.RMQRequest;
+package ch.helin.messages.dto.request;
 
 import ch.helin.messages.dto.DestinationType;
 import ch.helin.messages.dto.PayloadType;
-import ch.helin.messages.dto.RMQ.RMQRequestMessage;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -11,13 +10,15 @@ import java.util.List;
 /**
  * Created by styp on 06.04.16.
  */
-public class ConfigureAutopilotMessageReq extends RMQRequestMessage {
+public class ConfigureAutopilotRequest extends Request {
+
     private List<Point2D> waypoints = new LinkedList<>();
     private DestinationType destinationType;
 
 
-    public ConfigureAutopilotMessageReq(PayloadType payloadType) {
-        super(PayloadType.ConfigureAutopilotReq);    }
+    public ConfigureAutopilotRequest() {
+        super(PayloadType.ConfigureAutopilot);
+    }
 
     public List<Point2D> getWaypoints() {
         return waypoints;
