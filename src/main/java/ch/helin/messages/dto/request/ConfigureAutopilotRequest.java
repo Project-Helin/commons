@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ConfigureAutopilotRequest extends Request {
 
-    private List<Point2D> waypoints = new LinkedList<>();
+    private List<Point2D> waypoints = new LinkedList<Point2D>();
     private DestinationType destinationType;
 
 

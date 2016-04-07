@@ -28,7 +28,7 @@ public class MessageClassObjectContainer {
     private Map<MessageType, Map<PayloadType, Class<?>>> messageTypeToProtocolType;
 
     public MessageClassObjectContainer() {
-        messageTypeToProtocolType = new EnumMap<>(MessageType.class);
+        messageTypeToProtocolType = new EnumMap<MessageType, Map<PayloadType, Class<?>>>(MessageType.class);
 
         addAllDerivedClassesToMap(Request.class, MessageType.Request);
         addAllDerivedClassesToMap(Response.class, MessageType.Response);
@@ -56,7 +56,7 @@ public class MessageClassObjectContainer {
     private Map<PayloadType, Class<?>> buildPayloadTypeToClassMap(MessageType expectedMessageType,
                                                                   List<Class<?>> foundClasses) {
 
-        Map<PayloadType, Class<?>> payloadTypeToClass = new EnumMap<>(PayloadType.class);
+        Map<PayloadType, Class<?>> payloadTypeToClass = new EnumMap<PayloadType, Class<?>>(PayloadType.class);
         for (Class<?> eachClass : foundClasses) {
 
             Message anInstance = createAnInstance(eachClass);
@@ -94,7 +94,7 @@ public class MessageClassObjectContainer {
 
     private List<Class<?>> findAllDerivedClassesOf(Class<?> requestClass) {
 
-        final List<Class<?>> foundClasses = new ArrayList<>();
+        final List<Class<?>> foundClasses = new ArrayList<Class<?>>();
 
         /**
          * Yeah - don't change this to lamda -> don't break the world!
