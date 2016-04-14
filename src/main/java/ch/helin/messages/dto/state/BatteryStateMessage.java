@@ -7,45 +7,34 @@ import ch.helin.messages.dto.PayloadType;
  */
 public class BatteryStateMessage extends State {
 
-    private double voltage;
-    private double remain;
-    private double current;
-    private double discharge;
-
+    private BatteryState batteryStage;
 
     public BatteryStateMessage() {
         super(PayloadType.BatteryState);
     }
 
-    public double getVoltage() {
-        return voltage;
+    public BatteryState getBatteryStage() {
+        return batteryStage;
     }
 
-    public void setVoltage(double voltage) {
-        this.voltage = voltage;
+    public void setBatteryStage(BatteryState batteryStage) {
+        this.batteryStage = batteryStage;
     }
 
-    public double getRemain() {
-        return remain;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BatteryStateMessage that = (BatteryStateMessage) o;
+
+        return batteryStage != null ? batteryStage.equals(that.batteryStage) : that.batteryStage == null;
+
     }
 
-    public void setRemain(double remain) {
-        this.remain = remain;
+    @Override
+    public int hashCode() {
+        return batteryStage != null ? batteryStage.hashCode() : 0;
     }
 
-    public double getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(double current) {
-        this.current = current;
-    }
-
-    public double getDischarge() {
-        return discharge;
-    }
-
-    public void setDischarge(double discharge) {
-        this.discharge = discharge;
-    }
 }

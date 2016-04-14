@@ -6,66 +6,35 @@ import ch.helin.messages.dto.PayloadType;
  * @author Martin Stypinski ( mstypinski@gmail.com ) on 06.04.16.
  */
 public class DroneStateMessage extends State {
-    private boolean isConnected;
-    private boolean isGPSconnected;
 
-    private double verticalSpeed; // m/s
-    private double groundSpeed; // m/s
-
-    private double altitude;
-    private double targetAltitude;
-    private String firmware;
+    private DroneState droneState;
 
     public DroneStateMessage() {
         super(PayloadType.DroneState);
     }
 
-    public boolean isConnected() {
-        return isConnected;
+
+    public DroneState getDroneState() {
+        return droneState;
     }
 
-    public void setIsConnected(boolean isConnected) {
-        this.isConnected = isConnected;
+    public void setDroneState(DroneState droneState) {
+        this.droneState = droneState;
     }
 
-    public void setVerticalSpeed(double verticalSpeed) {
-        this.verticalSpeed = verticalSpeed;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DroneStateMessage that = (DroneStateMessage) o;
+
+        return droneState != null ? droneState.equals(that.droneState) : that.droneState == null;
+
     }
 
-    public void setGroundSpeed(double groundSpeed) {
-        this.groundSpeed = groundSpeed;
+    @Override
+    public int hashCode() {
+        return droneState != null ? droneState.hashCode() : 0;
     }
-
-    public double getVerticalSpeed() {
-        return verticalSpeed;
-    }
-
-    public double getGroundSpeed() {
-        return groundSpeed;
-    }
-
-    public double getAltitude() {
-        return altitude;
-    }
-
-    public double getTargetAltitude() {
-        return targetAltitude;
-    }
-
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
-
-    public void setTargetAltitude(double targetAltitude) {
-        this.targetAltitude = targetAltitude;
-    }
-
-    public void setFirmeware(String firmware) {
-        this.firmware = firmware;
-    }
-
-    public String getFirmware(){
-        return this.firmware;
-    }
-
 }
