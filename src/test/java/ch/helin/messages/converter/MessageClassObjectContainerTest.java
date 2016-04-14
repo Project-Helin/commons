@@ -1,5 +1,6 @@
 package ch.helin.messages.converter;
 
+
 import ch.helin.messages.dto.MessageType;
 import ch.helin.messages.dto.PayloadType;
 import ch.helin.messages.dto.request.ConfigureAutopilotRequest;
@@ -9,9 +10,14 @@ import ch.helin.messages.dto.response.ConfigureAutopilotResponse;
 import ch.helin.messages.dto.state.BatteryStateMessage;
 import ch.helin.messages.dto.state.DroneStateMessage;
 import ch.helin.messages.dto.state.GpsStateMessage;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -26,31 +32,31 @@ public class MessageClassObjectContainerTest {
 
         Class<?> configureAutopilotRequest = messageClassObjectContainer.findBy(
                 MessageType.Request, PayloadType.ConfigureAutopilot);
-        //assertThat(configureAutopilotRequest, IsEqual.equalTo(ConfigureAutopilotRequest.class));
+        assertEquals(configureAutopilotRequest, ConfigureAutopilotRequest.class);
 
         Class<?> confirmDeliveryRequest = messageClassObjectContainer.findBy(
                 MessageType.Request, PayloadType.ConfirmDelivery);
-        //assertThat(confirmDeliveryRequest, IsEqual.equalTo(ConfirmDeliveryRequest.class));
+        assertEquals(confirmDeliveryRequest, ConfirmDeliveryRequest.class);
 
         Class<?> goodbyeRequest = messageClassObjectContainer.findBy(
                 MessageType.Request, PayloadType.Goodbye);
-        //assertThat(goodbyeRequest, IsEqual.equalTo(GoodbyeRequest.class));
+        assertEquals(goodbyeRequest, GoodbyeRequest.class);
 
         Class<?> configureAutoPilotResponse = messageClassObjectContainer.findBy(
                 MessageType.Response, PayloadType.ConfigureAutopilot);
-        //assertThat(configureAutoPilotResponse, IsEqual.equalTo(ConfigureAutopilotResponse.class));
+        assertEquals(configureAutoPilotResponse, ConfigureAutopilotResponse.class);
 
         Class<?> batteryStateMessageObj = messageClassObjectContainer.findBy(
                 MessageType.State, PayloadType.BatteryState);
-        //assertThat(batteryStateMessageObj, IsEqual.equalTo(BatteryStateMessage.class));
+        assertEquals(batteryStateMessageObj, BatteryStateMessage.class);
 
         Class<?> droneState = messageClassObjectContainer.findBy(
                 MessageType.State, PayloadType.DroneState);
-        //assertThat(droneState, IsEqual.equalTo(DroneStateMessage.class));
+        assertEquals(droneState, DroneStateMessage.class);
 
         Class<?> gpsState = messageClassObjectContainer.findBy(
                 MessageType.State, PayloadType.GpsState);
-        //assertThat(gpsState, IsEqual.equalTo(GpsStateMessage.class));
+        assertEquals(gpsState, GpsStateMessage.class);
     }
 
     @Test(expected=CouldNotParseJsonException.class)
