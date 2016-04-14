@@ -1,22 +1,21 @@
 package ch.helin.messages.converter;
 
 import ch.helin.messages.dto.Message;
-import ch.helin.messages.dto.state.GPSState;
+import ch.helin.messages.dto.state.GpsQuality;
+import ch.helin.messages.dto.state.GpsState;
 import ch.helin.messages.dto.state.GpsStateMessage;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by martin on 06.04.16.
- */
+
 public class JsonBasedMessageConverterTest {
 
     @Test
     public void testParseMessageToStringToMessage() throws Exception {
-        GPSState gpsState = new GPSState();
-        gpsState.setFixType(3);
+        GpsState gpsState = new GpsState();
+        gpsState.setFixType(GpsQuality._2D);
         gpsState.setPosLat(27);
         gpsState.setPosLon(26);
         gpsState.setSatellitesCount(5);
@@ -29,7 +28,6 @@ public class JsonBasedMessageConverterTest {
 
         Message returnMessage = jsonBasedMessageConverter.parseStringToMessage(json);
 
-        //assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
         assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
 
     }

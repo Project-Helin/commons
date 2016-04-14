@@ -1,17 +1,17 @@
 package ch.helin.messages.dto.state;
 
-public class GPSState {
+public class GpsState {
 
-    private int fixType;
+    private GpsQuality fixType;
     private int satellitesCount;
     private double posLat;
     private double posLon;
 
-    public int getFixType() {
+    public GpsQuality getFixType() {
         return fixType;
     }
 
-    public void setFixType(int fixType) {
+    public void setFixType(GpsQuality fixType) {
         this.fixType = fixType;
     }
 
@@ -44,12 +44,12 @@ public class GPSState {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GPSState gpsState = (GPSState) o;
+        GpsState gpsState = (GpsState) o;
 
-        if (fixType != gpsState.fixType) return false;
         if (satellitesCount != gpsState.satellitesCount) return false;
         if (Double.compare(gpsState.posLat, posLat) != 0) return false;
-        return Double.compare(gpsState.posLon, posLon) == 0;
+        if (Double.compare(gpsState.posLon, posLon) != 0) return false;
+        return fixType == gpsState.fixType;
 
     }
 
@@ -57,7 +57,7 @@ public class GPSState {
     public int hashCode() {
         int result;
         long temp;
-        result = fixType;
+        result = fixType != null ? fixType.hashCode() : 0;
         result = 31 * result + satellitesCount;
         temp = Double.doubleToLongBits(posLat);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -65,5 +65,4 @@ public class GPSState {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
-
 }

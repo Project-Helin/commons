@@ -6,18 +6,18 @@ import ch.helin.messages.dto.PayloadType;
 
 public class GpsStateMessage extends State {
 
-    private GPSState gpsState;
+    private GpsState gpsState;
 
     public GpsStateMessage() {
         super(PayloadType.GpsState);
     }
 
 
-    public GPSState getGpsState() {
+    public GpsState getGpsState() {
         return gpsState;
     }
 
-    public void setGpsState(GPSState gpsState) {
+    public void setGpsState(GpsState gpsState) {
         this.gpsState = gpsState;
     }
 
