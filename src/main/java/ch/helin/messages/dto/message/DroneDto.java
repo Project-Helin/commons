@@ -3,6 +3,10 @@ package ch.helin.messages.dto.message;
 import ch.helin.messages.dto.way.Position;
 
 import java.util.UUID;
+/**
+ * DroneDTO to register a drone through HTTP channel.
+ * Is needed for handshake to open AMQP communication channel.
+ */
 
 public class DroneDto {
 

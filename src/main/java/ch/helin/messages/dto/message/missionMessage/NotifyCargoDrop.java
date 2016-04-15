@@ -5,7 +5,8 @@ import ch.helin.messages.dto.message.PayloadType;
 import ch.helin.messages.dto.way.Waypoint;
 
 /**
- * Created by martin on 14.04.16.
+ * Message to notify the server that the cargo is ready to be droped.
+ * Sent as soon as drone reaches its last RoutePoint with Action Drop.
  */
 public class NotifyCargoDrop extends Message{
 

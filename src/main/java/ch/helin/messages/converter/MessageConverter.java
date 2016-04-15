@@ -3,7 +3,7 @@ package ch.helin.messages.converter;
 import ch.helin.messages.dto.message.Message;
 
 /**
- * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com )
+ * Interface to implement different serialization possibilities.
  */
 public interface MessageConverter {
 

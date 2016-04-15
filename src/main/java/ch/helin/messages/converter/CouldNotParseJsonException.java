@@ -1,9 +1,8 @@
 package ch.helin.messages.converter;
 
 /**
- * Exception thrown to communicate the caller that the message could nto be parsed
- *
- * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com ) & Martin Stypinski ( mstypinski@gmail.com )
+ * Exception thrown to communicate the caller that the message could not be parsed
+
  */
 public class CouldNotParseJsonException extends RuntimeException {
 

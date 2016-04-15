@@ -1,7 +1,7 @@
 package ch.helin.messages.dto.message;
 
 /**
- * @author Martin Stypinski ( mstypinski@gmail.com ) on 03.04.16.
+ * Wrapper class, to easier encode and decode JSONs.
  */
 
 public class Message {

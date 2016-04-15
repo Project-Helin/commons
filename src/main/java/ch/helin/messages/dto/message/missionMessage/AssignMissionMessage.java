@@ -4,7 +4,9 @@ import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
 import ch.helin.messages.dto.way.Route;
 
-
+/**
+ * Message to assign a drone a specific mission.
+ */
 public class AssignMissionMessage extends Message{
 
     private Route route;

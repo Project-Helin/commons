@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Json Specific MessageConverter
  */
+
 public class JsonBasedMessageConverter implements MessageConverter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonBasedMessageConverter.class);

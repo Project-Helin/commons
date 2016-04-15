@@ -4,7 +4,7 @@ import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
 
 /**
- * Created by martin on 14.04.16.
+ * Message to be send, as soon as Drone-Operator has loaded the cargo and confirms it on the display.
  */
 public class ConfirmCargoLoaded extends Message{
 

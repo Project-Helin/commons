@@ -2,6 +2,10 @@ package ch.helin.messages.dto.message;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * PayloadType for each Message, is needed for GSON JSON parsing.
+ */
+
 public enum PayloadType {
 
     @SerializedName("GpsState")

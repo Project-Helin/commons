@@ -1,5 +1,9 @@
 package ch.helin.messages.dto.state;
 
+/**
+ * Carries information about the battery state of the drone.
+ */
+
 public class BatteryState{
 
     private double voltage;

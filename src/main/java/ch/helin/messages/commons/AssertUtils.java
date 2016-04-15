@@ -1,8 +1,5 @@
 package ch.helin.messages.commons;
 
-/**
- * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com ) & Martin Stypinski ( mstypinski@gmail.com )
- */
 public class AssertUtils {
     private AssertUtils() {
         // this class has only static methods

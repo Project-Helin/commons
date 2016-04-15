@@ -1,5 +1,9 @@
 package ch.helin.messages.dto.state;
 
+/**
+ * Carries general information about the drone and dynamic position information
+ */
+
 public class DroneState {
 
     private boolean isConnected;

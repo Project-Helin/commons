@@ -1,5 +1,9 @@
 package ch.helin.messages.dto.state;
 
+/**
+ * Carries the current static position of the drone and signal quality of the current GPS state.
+ */
+
 public class GpsState {
 
     private GpsQuality fixType;
