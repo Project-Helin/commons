@@ -27,7 +27,7 @@ public class JsonBasedMessageConverterTest {
         String json = jsonBasedMessageConverter.parseMessageToString(gpsStateMessage);
 
         Message returnMessage = jsonBasedMessageConverter.parseStringToMessage(json);
-
+        
         assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
 
     }

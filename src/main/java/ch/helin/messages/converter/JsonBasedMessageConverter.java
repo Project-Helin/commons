@@ -49,13 +49,6 @@ public class JsonBasedMessageConverter implements MessageConverter {
             case BatteryState:
                 return gson.fromJson(messageAsJson, BatteryStateMessage.class);
 
-            case AssignMission:
-                return gson.fromJson(messageAsJson, AssignMission.class);
-            case ConfirmMission:
-                return gson.fromJson(messageAsJson, ConfirmMission.class);
-            case RejectMission:
-                return gson.fromJson(messageAsJson, RejectMission.class);
-
             case ConfirmCargoLoaded:
                 return gson.fromJson(messageAsJson, ConfirmCargoLoaded.class);
             case NotifyCargoDrop:

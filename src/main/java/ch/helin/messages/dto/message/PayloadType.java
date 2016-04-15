@@ -32,7 +32,10 @@ public enum PayloadType {
     ConfirmCargoLoaded,
 
     @SerializedName("NotifyCargoDrop")
-    NotifyCargoDrop;
+    NotifyCargoDrop,
+
+    @SerializedName("CreateDrone")
+    CreateDrone;
 }
 
 

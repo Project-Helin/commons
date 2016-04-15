@@ -4,14 +4,12 @@ import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
 import ch.helin.messages.dto.way.Route;
 
-/**
- * Created by martin on 14.04.16.
- */
-public class AssignMission extends Message{
+
+public class AssignMissionMessage extends Message{
 
     private Route route;
 
-    public AssignMission() {
+    public AssignMissionMessage() {
         super(PayloadType.AssignMission);
     }
 
