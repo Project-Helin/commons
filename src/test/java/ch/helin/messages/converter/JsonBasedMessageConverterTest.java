@@ -1,9 +1,9 @@
 package ch.helin.messages.converter;
 
-import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.state.GpsQuality;
 import ch.helin.messages.dto.state.GpsState;
-import ch.helin.messages.dto.state.GpsStateMessage;
+import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
@@ -29,6 +29,13 @@ public class JsonBasedMessageConverterTest {
         Message returnMessage = jsonBasedMessageConverter.parseStringToMessage(json);
 
         assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
+
+    }
+
+    @Test(expected = CouldNotParseJsonException.class)
+    public void couldNotParseJsonMessage() {
+        JsonBasedMessageConverter jsonBasedMessageConverter = new JsonBasedMessageConverter();
+        Message json = jsonBasedMessageConverter.parseStringToMessage("unknown content");
 
     }
 

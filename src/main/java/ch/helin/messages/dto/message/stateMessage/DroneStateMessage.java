@@ -1,11 +1,13 @@
-package ch.helin.messages.dto.state;
+package ch.helin.messages.dto.message.stateMessage;
 
-import ch.helin.messages.dto.PayloadType;
+import ch.helin.messages.dto.message.Message;
+import ch.helin.messages.dto.message.PayloadType;
+import ch.helin.messages.dto.state.DroneState;
 
 /**
  * @author Martin Stypinski ( mstypinski@gmail.com ) on 06.04.16.
  */
-public class DroneStateMessage extends State {
+public class DroneStateMessage extends Message {
 
     private DroneState droneState;
 

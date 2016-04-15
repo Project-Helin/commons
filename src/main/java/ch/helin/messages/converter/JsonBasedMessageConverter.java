@@ -1,7 +1,13 @@
 package ch.helin.messages.converter;
 
 import ch.helin.messages.commons.AssertUtils;
-import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.message.Message;
+import ch.helin.messages.dto.message.PayloadType;
+import ch.helin.messages.dto.message.missionMessage.*;
+import ch.helin.messages.dto.message.stateMessage.BatteryStateMessage;
+import ch.helin.messages.dto.message.stateMessage.DroneStateMessage;
+import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
@@ -9,8 +15,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Json Specific MessageConverter
- *
- * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com )
  */
 public class JsonBasedMessageConverter implements MessageConverter {
 
@@ -31,14 +35,35 @@ public class JsonBasedMessageConverter implements MessageConverter {
     }
 
     private Message parseMessageWithoutCare(String messageAsJson) {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Message.class, new MessageClassAdapter())
-                .create();
+        Gson gson = new GsonBuilder().create();
 
         Message parsedMessage = gson.fromJson(messageAsJson, Message.class);
         AssertUtils.throwExceptionIfNull(parsedMessage);
 
-        return parsedMessage;
+        PayloadType payloadType = parsedMessage.getPayloadType();
+        switch (payloadType) {
+            case DroneState:
+                return gson.fromJson(messageAsJson, DroneStateMessage.class);
+            case GpsState:
+                return gson.fromJson(messageAsJson, GpsStateMessage.class);
+            case BatteryState:
+                return gson.fromJson(messageAsJson, BatteryStateMessage.class);
+
+            case AssignMission:
+                return gson.fromJson(messageAsJson, AssignMission.class);
+            case ConfirmMission:
+                return gson.fromJson(messageAsJson, ConfirmMission.class);
+            case RejectMission:
+                return gson.fromJson(messageAsJson, RejectMission.class);
+
+            case ConfirmCargoLoaded:
+                return gson.fromJson(messageAsJson, ConfirmCargoLoaded.class);
+            case NotifyCargoDrop:
+                return gson.fromJson(messageAsJson, NotifyCargoDrop.class);
+
+        }
+
+        throw new RuntimeException(String.valueOf(payloadType));
     }
 
     @Override

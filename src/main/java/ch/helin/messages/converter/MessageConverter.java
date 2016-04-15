@@ -1,6 +1,6 @@
 package ch.helin.messages.converter;
 
-import ch.helin.messages.dto.Message;
+import ch.helin.messages.dto.message.Message;
 
 /**
  * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com )

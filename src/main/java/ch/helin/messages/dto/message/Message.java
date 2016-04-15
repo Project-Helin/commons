@@ -1,4 +1,4 @@
-package ch.helin.messages.dto;
+package ch.helin.messages.dto.message;
 
 /**
  * @author Martin Stypinski ( mstypinski@gmail.com ) on 03.04.16.
@@ -6,10 +6,8 @@ package ch.helin.messages.dto;
 
 public class Message {
     private PayloadType payloadType;
-    private MessageType messageType;
 
-    public Message(MessageType messageType, PayloadType payloadType) {
-        this.messageType = messageType;
+    public Message(PayloadType payloadType) {
         this.payloadType = payloadType;
     }
 
@@ -19,13 +17,5 @@ public class Message {
 
     public void setPayloadType(PayloadType payloadType) {
         this.payloadType = payloadType;
-    }
-
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
     }
 }

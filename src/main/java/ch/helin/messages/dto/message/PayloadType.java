@@ -1,10 +1,6 @@
-package ch.helin.messages.dto;
+package ch.helin.messages.dto.message;
 
 import com.google.gson.annotations.SerializedName;
-
-/**
- * @author Martin Stypinski ( mstypinski@gmail.com ) on 03.04.16.
- */
 
 public enum PayloadType {
 
@@ -23,9 +19,20 @@ public enum PayloadType {
     @SerializedName("ConfirmDelivery")
     ConfirmDelivery,
 
-    @SerializedName("G")
-    Goodbye;
+    @SerializedName("AssignMission")
+    AssignMission,
 
+    @SerializedName("ConfirmMission")
+    ConfirmMission,
+
+    @SerializedName("RejectMission")
+    RejectMission,
+
+    @SerializedName("ConfirmCargoLoaded")
+    ConfirmCargoLoaded,
+
+    @SerializedName("NotifyCargoDrop")
+    NotifyCargoDrop;
 }
 
 

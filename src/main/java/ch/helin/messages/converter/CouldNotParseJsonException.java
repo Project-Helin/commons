@@ -6,6 +6,7 @@ package ch.helin.messages.converter;
  * @author Kirusanth Poopalasingam ( pkirusanth@gmail.com ) & Martin Stypinski ( mstypinski@gmail.com )
  */
 public class CouldNotParseJsonException extends RuntimeException {
+
     public CouldNotParseJsonException(String message) {
         super(message);
     }

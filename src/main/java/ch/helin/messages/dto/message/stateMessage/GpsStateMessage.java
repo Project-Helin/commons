@@ -1,10 +1,12 @@
-package ch.helin.messages.dto.state;
+package ch.helin.messages.dto.message.stateMessage;
 
 
-import ch.helin.messages.dto.PayloadType;
+import ch.helin.messages.dto.message.Message;
+import ch.helin.messages.dto.message.PayloadType;
+import ch.helin.messages.dto.state.GpsState;
 
 
-public class GpsStateMessage extends State {
+public class GpsStateMessage extends Message {
 
     private GpsState gpsState;
 
