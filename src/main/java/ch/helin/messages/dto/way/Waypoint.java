@@ -2,7 +2,7 @@ package ch.helin.messages.dto.way;
 
 import ch.helin.messages.dto.Action;
 
-public abstract class Waypoint {
+public class Waypoint {
 
     private Position position;
     private Action action;
