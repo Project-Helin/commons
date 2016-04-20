@@ -1,13 +1,27 @@
 package ch.helin.messages.dto.way;
 
-/**
- * Created by martin on 15.04.16.
- */
+
 public class Position {
 
     private double lat;
     private double lon;
     private double height;
+
+    public Position() {
+    }
+
+    public Position(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+        this.height = 0;
+    }
+
+    public Position(double lat, double lon, double height) {
+        this.lat = lat;
+        this.lon = lon;
+        this.height = height;
+    }
+
 
     public double getLat() {
         return lat;

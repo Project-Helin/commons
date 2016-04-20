@@ -29,13 +29,12 @@ public class JsonBasedMessageConverterTest {
         Message returnMessage = jsonBasedMessageConverter.parseStringToMessage(json);
         
         assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
-
     }
 
     @Test(expected = CouldNotParseJsonException.class)
     public void couldNotParseJsonMessage() {
         JsonBasedMessageConverter jsonBasedMessageConverter = new JsonBasedMessageConverter();
-        Message json = jsonBasedMessageConverter.parseStringToMessage("unknown content");
+        jsonBasedMessageConverter.parseStringToMessage("unknown content");
 
     }
 
