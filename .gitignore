@@ -1,3 +1,10 @@
+/.idea
+target
+.vagrant
+.gradle
+build
+
+*.iml
 *.class
 
 # Mobile Tools for Java (J2ME)
