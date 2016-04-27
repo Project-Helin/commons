@@ -4,9 +4,6 @@ import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
 import ch.helin.messages.dto.state.BatteryState;
 
-/**
- * @author Martin Stypinski ( mstypinski@gmail.com ) on 06.04.16.
- */
 public class BatteryStateMessage extends Message {
 
     private BatteryState batteryStage;
