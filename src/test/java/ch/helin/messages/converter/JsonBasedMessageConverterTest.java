@@ -1,16 +1,13 @@
 package ch.helin.messages.converter;
 
-import ch.helin.messages.dto.message.DroneDto;
 import ch.helin.messages.dto.message.Message;
-import ch.helin.messages.dto.message.stateMessage.DroneStateMessage;
-import ch.helin.messages.dto.state.DroneState;
+import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
 import ch.helin.messages.dto.state.GpsQuality;
 import ch.helin.messages.dto.state.GpsState;
-import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 
 public class JsonBasedMessageConverterTest {
@@ -38,23 +35,6 @@ public class JsonBasedMessageConverterTest {
     public void couldNotParseJsonMessage() {
         JsonBasedMessageConverter jsonBasedMessageConverter = new JsonBasedMessageConverter();
         jsonBasedMessageConverter.parseStringToMessage("unknown content");
-
-    }
-
-    @Test
-    public void testParseDroneState() throws Exception {
-
-        DroneState droneState = new DroneState();
-        droneState.setAltitude(12);
-        droneState.setIsConnected(true);
-        droneState.setGroundSpeed(35);
-        droneState.setFirmeware("Ardupilot 3.3");
-        droneState.setVerticalSpeed(3);
-
-        DroneStateMessage droneStateMessage = new DroneStateMessage();
-        droneStateMessage.setDroneState(droneState);
-
-        JsonNode messageAsJSON = Json.toJson(droneStateMessage);
 
     }
 }
