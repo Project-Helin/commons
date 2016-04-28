@@ -9,6 +9,7 @@ public class DroneState {
     private boolean isConnected;
 
     private double verticalSpeed; // m/s
+
     private double groundSpeed; // m/s
 
     private double altitude;
@@ -95,5 +96,17 @@ public class DroneState {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (firmware != null ? firmware.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "DroneState{" +
+                "isConnected=" + isConnected +
+                ", verticalSpeed=" + verticalSpeed +
+                ", groundSpeed=" + groundSpeed +
+                ", altitude=" + altitude +
+                ", targetAltitude=" + targetAltitude +
+                ", firmware='" + firmware + '\'' +
+                '}';
     }
 }
