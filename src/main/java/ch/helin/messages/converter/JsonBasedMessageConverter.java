@@ -42,6 +42,7 @@ public class JsonBasedMessageConverter implements MessageConverter {
         AssertUtils.throwExceptionIfNull(parsedMessage);
 
         PayloadType payloadType = parsedMessage.getPayloadType();
+        AssertUtils.throwExceptionIfNull(payloadType);
         switch (payloadType) {
             case DroneState:
                 return gson.fromJson(messageAsJson, DroneStateMessage.class);
