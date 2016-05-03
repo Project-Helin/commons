@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Route {
 
+
+    /**
+     * TODO: rename this to distanceInMeter (?)
+     */
     private double distance;
 
     private List<Waypoint> wayPoints = new ArrayList<>();
