@@ -4,11 +4,8 @@ import ch.helin.messages.commons.AssertUtils;
 import ch.helin.messages.dto.message.DroneInfoMessage;
 import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
-import ch.helin.messages.dto.message.missionMessage.*;
-import ch.helin.messages.dto.message.stateMessage.BatteryStateMessage;
-import ch.helin.messages.dto.message.stateMessage.DroneStateMessage;
-import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
-
+import ch.helin.messages.dto.message.missionMessage.ConfirmCargoLoaded;
+import ch.helin.messages.dto.message.missionMessage.NotifyCargoDrop;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
@@ -45,12 +42,6 @@ public class JsonBasedMessageConverter implements MessageConverter {
         PayloadType payloadType = parsedMessage.getPayloadType();
         AssertUtils.throwExceptionIfNull(payloadType);
         switch (payloadType) {
-            case DroneState:
-                return gson.fromJson(messageAsJson, DroneStateMessage.class);
-            case GpsState:
-                return gson.fromJson(messageAsJson, GpsStateMessage.class);
-            case BatteryState:
-                return gson.fromJson(messageAsJson, BatteryStateMessage.class);
             case ConfirmCargoLoaded:
                 return gson.fromJson(messageAsJson, ConfirmCargoLoaded.class);
             case NotifyCargoDrop:
