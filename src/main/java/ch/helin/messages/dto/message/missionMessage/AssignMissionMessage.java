@@ -2,24 +2,24 @@ package ch.helin.messages.dto.message.missionMessage;
 
 import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
-import ch.helin.messages.dto.way.Route;
+import ch.helin.messages.dto.way.RouteDto;
 
 /**
  * Message to assign a drone a specific mission.
  */
 public class AssignMissionMessage extends Message{
 
-    private Route route;
+    private RouteDto routeDto;
 
     public AssignMissionMessage() {
         super(PayloadType.AssignMission);
     }
 
-    public Route getRoute() {
-        return route;
+    public RouteDto getRouteDto() {
+        return routeDto;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setRouteDto(RouteDto routeDto) {
+        this.routeDto = routeDto;
     }
 }

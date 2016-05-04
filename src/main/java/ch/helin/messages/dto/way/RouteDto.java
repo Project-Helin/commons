@@ -3,22 +3,18 @@ package ch.helin.messages.dto.way;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route {
+public class RouteDto {
 
-
-    /**
-     * TODO: rename this to distanceInMeter (?)
-     */
-    private double distance;
+    private double distanceInMeters;
 
     private List<Waypoint> wayPoints = new ArrayList<>();
 
-    public double getDistance() {
-        return distance;
+    public double getDistanceInMeters() {
+        return distanceInMeters;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setDistanceInMeters(double distanceInMeters) {
+        this.distanceInMeters = distanceInMeters;
     }
 
     public List<Waypoint> getWayPoints() {
@@ -28,7 +24,5 @@ public class Route {
     public void setWayPoints(List<Waypoint> wayPoints) {
         this.wayPoints = wayPoints;
     }
-
-    // Mission here!
 
 }
