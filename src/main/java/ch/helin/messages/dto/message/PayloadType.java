@@ -39,7 +39,10 @@ public enum PayloadType {
     NotifyCargoDrop,
 
     @SerializedName("DroneDto")
-    DroneDto
+    DroneDto,
+
+    @SerializedName("DroneInfo")
+    DroneInfo
 }
 
 

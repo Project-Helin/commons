@@ -1,6 +1,7 @@
 package ch.helin.messages.converter;
 
 import ch.helin.messages.commons.AssertUtils;
+import ch.helin.messages.dto.message.DroneInfoMessage;
 import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.message.PayloadType;
 import ch.helin.messages.dto.message.missionMessage.*;
@@ -50,11 +51,12 @@ public class JsonBasedMessageConverter implements MessageConverter {
                 return gson.fromJson(messageAsJson, GpsStateMessage.class);
             case BatteryState:
                 return gson.fromJson(messageAsJson, BatteryStateMessage.class);
-
             case ConfirmCargoLoaded:
                 return gson.fromJson(messageAsJson, ConfirmCargoLoaded.class);
             case NotifyCargoDrop:
                 return gson.fromJson(messageAsJson, NotifyCargoDrop.class);
+            case DroneInfo:
+                return gson.fromJson(messageAsJson, DroneInfoMessage.class);
 
         }
 
