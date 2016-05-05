@@ -1,7 +1,7 @@
 package ch.helin.messages.converter;
 
+import ch.helin.messages.dto.message.DroneInfoMessage;
 import ch.helin.messages.dto.message.Message;
-import ch.helin.messages.dto.message.stateMessage.GpsStateMessage;
 import ch.helin.messages.dto.state.GpsQuality;
 import ch.helin.messages.dto.state.GpsState;
 import org.hamcrest.core.IsEqual;
@@ -20,15 +20,15 @@ public class JsonBasedMessageConverterTest {
         gpsState.setPosLon(26);
         gpsState.setSatellitesCount(5);
 
-        GpsStateMessage gpsStateMessage = new GpsStateMessage();
-        gpsStateMessage.setGpsState(gpsState);
+        DroneInfoMessage droneInfoMessage = new DroneInfoMessage();
+        droneInfoMessage.setGpsState(gpsState);
 
         JsonBasedMessageConverter jsonBasedMessageConverter = new JsonBasedMessageConverter();
-        String json = jsonBasedMessageConverter.parseMessageToString(gpsStateMessage);
+        String json = jsonBasedMessageConverter.parseMessageToString(droneInfoMessage);
 
         Message returnMessage = jsonBasedMessageConverter.parseStringToMessage(json);
         
-        assertThat(gpsStateMessage, IsEqual.equalTo(returnMessage));
+        assertThat(droneInfoMessage, IsEqual.equalTo(returnMessage));
     }
 
     @Test(expected = CouldNotParseJsonException.class)
