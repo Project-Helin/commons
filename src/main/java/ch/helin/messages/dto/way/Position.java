@@ -46,4 +46,14 @@ public class Position {
     public void setHeight(double height) {
         this.height = height;
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "lat=" + lat +
+                ", lon=" + lon +
+                ", height=" + height +
+                '}';
+    }
+
 }
