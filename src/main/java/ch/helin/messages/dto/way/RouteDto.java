@@ -25,4 +25,25 @@ public class RouteDto {
         this.wayPoints = wayPoints;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RouteDto)) return false;
+
+        RouteDto routeDto = (RouteDto) o;
+
+        if (Double.compare(routeDto.distanceInMeters, distanceInMeters) != 0) return false;
+        return wayPoints != null ? wayPoints.equals(routeDto.wayPoints) : routeDto.wayPoints == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(distanceInMeters);
+        result = (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (wayPoints != null ? wayPoints.hashCode() : 0);
+        return result;
+    }
 }

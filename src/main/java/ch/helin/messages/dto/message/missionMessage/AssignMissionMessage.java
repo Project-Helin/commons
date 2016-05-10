@@ -22,4 +22,20 @@ public class AssignMissionMessage extends Message{
     public void setMission(MissionDto mission) {
         this.mission = mission;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AssignMissionMessage)) return false;
+
+        AssignMissionMessage that = (AssignMissionMessage) o;
+
+        return mission != null ? mission.equals(that.mission) : that.mission == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mission != null ? mission.hashCode() : 0;
+    }
 }
