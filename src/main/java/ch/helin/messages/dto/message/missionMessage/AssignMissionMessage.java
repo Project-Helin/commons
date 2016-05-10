@@ -22,4 +22,5 @@ public class AssignMissionMessage extends Message{
     public void setRouteDto(RouteDto routeDto) {
         this.routeDto = routeDto;
     }
+
 }
