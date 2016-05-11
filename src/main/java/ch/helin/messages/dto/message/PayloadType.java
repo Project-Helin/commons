@@ -26,6 +26,9 @@ public enum PayloadType {
     @SerializedName("AssignMission")
     AssignMission,
 
+    @SerializedName("FinalAssignMission")
+    FinalAssignMission,
+
     @SerializedName("ConfirmMission")
     ConfirmMission,
 
