@@ -5,16 +5,19 @@ public class AssertUtils {
         // this class has only static methods
     }
 
-    public static void throwExceptionIfNull(Object object) {
+    public static Object throwExceptionIfNull(Object object) {
         if (object == null) {
             throw new IllegalArgumentException("Should not be null");
         }
+        return object;
     }
 
-    public static void throwExceptionIfNull(Object object, String errorMessage) {
+    public static Object throwExceptionIfNull(Object object, String errorMessage) {
         if (object == null) {
             throw new IllegalArgumentException("Should not be null. Reason: " + errorMessage);
         }
+
+        return object;
     }
 
     public static void throwExceptionIfNegative(int number) {
