@@ -1,6 +1,7 @@
 package ch.helin.messages.dto.way;
 
 
+// TODO Major mission kiru: rename PositionDto
 public class Position {
 
     private double lat;
@@ -76,8 +77,8 @@ public class Position {
     @Override
     public String toString() {
         return "Position{" +
-                "lat=" + lat +
-                ", lon=" + lon +
+                "lon=" + lon +
+                ", lat=" + lat +
                 ", height=" + height +
                 '}';
     }
