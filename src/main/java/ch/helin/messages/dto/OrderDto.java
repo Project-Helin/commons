@@ -3,14 +3,13 @@ package ch.helin.messages.dto;
 import ch.helin.messages.dto.way.Position;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class OrderDto {
     private UUID projectId;
     private String customerName;
     private Position deliveryPosition;
-    private Set<OrderProductDto> orderProducts;
+    private List<OrderProductDto> orderProducts;
     private String state;
     private List<MissionDto> missions;
 
@@ -38,14 +37,6 @@ public class OrderDto {
         this.deliveryPosition = deliveryPosition;
     }
 
-    public Set<OrderProductDto> getOrderProducts() {
-        return orderProducts;
-    }
-
-    public void setOrderProducts(Set<OrderProductDto> orderProducts) {
-        this.orderProducts = orderProducts;
-    }
-
     public String getState() {
         return state;
     }
@@ -60,5 +51,13 @@ public class OrderDto {
 
     public void setMissions(List<MissionDto> missions) {
         this.missions = missions;
+    }
+
+    public List<OrderProductDto> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProductDto> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 }
