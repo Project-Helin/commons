@@ -62,5 +62,9 @@ public class ProductDto {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
+
+    public void setWeightGramm(Integer weightGramm) {
+        this.weightGramm = weightGramm;
+    }
 }
 
