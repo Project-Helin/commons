@@ -4,16 +4,16 @@ import ch.helin.messages.dto.way.RouteDto;
 
 public class MissionDto {
 
-    private RouteDto routeDto;
+    private RouteDto route;
 
     private OrderProductDto orderProduct;
 
-    public RouteDto getRouteDto() {
-        return routeDto;
+    public RouteDto getRoute() {
+        return route;
     }
 
-    public void setRouteDto(RouteDto routeDto) {
-        this.routeDto = routeDto;
+    public void setRoute(RouteDto route) {
+        this.route = route;
     }
 
     public OrderProductDto getOrderProduct() {
@@ -31,14 +31,14 @@ public class MissionDto {
 
         MissionDto that = (MissionDto) o;
 
-        if (routeDto != null ? !routeDto.equals(that.routeDto) : that.routeDto != null) return false;
+        if (route != null ? !route.equals(that.route) : that.route != null) return false;
         return orderProduct != null ? orderProduct.equals(that.orderProduct) : that.orderProduct == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = routeDto != null ? routeDto.hashCode() : 0;
+        int result = route != null ? route.hashCode() : 0;
         result = 31 * result + (orderProduct != null ? orderProduct.hashCode() : 0);
         return result;
     }
