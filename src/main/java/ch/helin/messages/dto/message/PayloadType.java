@@ -45,7 +45,10 @@ public enum PayloadType {
     DroneDto,
 
     @SerializedName("DroneInfo")
-    DroneInfo
+    DroneInfo,
+
+    @SerializedName("FinishedMission")
+    FinishedMission
 }
 
 
