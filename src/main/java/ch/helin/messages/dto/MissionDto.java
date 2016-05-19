@@ -2,11 +2,15 @@ package ch.helin.messages.dto;
 
 import ch.helin.messages.dto.way.RouteDto;
 
+import java.util.List;
+
 public class MissionDto {
 
     private RouteDto route;
 
     private OrderProductDto orderProduct;
+
+    private List<DroneInfoDto> droneInfos;
 
     public RouteDto getRoute() {
         return route;
