@@ -6,6 +6,8 @@ import java.util.List;
 
 public class MissionDto {
 
+    private String state;
+
     private RouteDto route;
 
     private OrderProductDto orderProduct;
@@ -55,5 +57,13 @@ public class MissionDto {
         result = 31 * result + (orderProduct != null ? orderProduct.hashCode() : 0);
         result = 31 * result + (droneInfos != null ? droneInfos.hashCode() : 0);
         return result;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
