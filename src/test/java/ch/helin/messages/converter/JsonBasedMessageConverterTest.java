@@ -1,5 +1,6 @@
 package ch.helin.messages.converter;
 
+import ch.helin.messages.dto.DroneInfoDto;
 import ch.helin.messages.dto.message.DroneInfoMessage;
 import ch.helin.messages.dto.message.Message;
 import ch.helin.messages.dto.state.GpsQuality;
@@ -21,7 +22,9 @@ public class JsonBasedMessageConverterTest {
         gpsState.setSatellitesCount(5);
 
         DroneInfoMessage droneInfoMessage = new DroneInfoMessage();
-        droneInfoMessage.setGpsState(gpsState);
+        DroneInfoDto droneInfoDto = new DroneInfoDto();
+        droneInfoDto.setGpsState(gpsState);
+        droneInfoMessage.setDroneInfo(droneInfoDto);
 
         JsonBasedMessageConverter jsonBasedMessageConverter = new JsonBasedMessageConverter();
         String json = jsonBasedMessageConverter.parseMessageToString(droneInfoMessage);

@@ -28,6 +28,14 @@ public class MissionDto {
         this.orderProduct = orderProduct;
     }
 
+    public List<DroneInfoDto> getDroneInfos() {
+        return droneInfos;
+    }
+
+    public void setDroneInfos(List<DroneInfoDto> droneInfos) {
+        this.droneInfos = droneInfos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,7 +44,8 @@ public class MissionDto {
         MissionDto that = (MissionDto) o;
 
         if (route != null ? !route.equals(that.route) : that.route != null) return false;
-        return orderProduct != null ? orderProduct.equals(that.orderProduct) : that.orderProduct == null;
+        if (orderProduct != null ? !orderProduct.equals(that.orderProduct) : that.orderProduct != null) return false;
+        return droneInfos != null ? droneInfos.equals(that.droneInfos) : that.droneInfos == null;
 
     }
 
@@ -44,6 +53,7 @@ public class MissionDto {
     public int hashCode() {
         int result = route != null ? route.hashCode() : 0;
         result = 31 * result + (orderProduct != null ? orderProduct.hashCode() : 0);
+        result = 31 * result + (droneInfos != null ? droneInfos.hashCode() : 0);
         return result;
     }
 }
