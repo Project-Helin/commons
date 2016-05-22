@@ -1,4 +1,4 @@
-package ch.helin.messages.commons;
+package ch.helin.commons;
 
 public class ConnectionUtils {
 
