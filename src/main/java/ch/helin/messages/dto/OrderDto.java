@@ -8,6 +8,9 @@ import java.util.UUID;
 public class OrderDto {
     private UUID projectId;
     private String customerName;
+    /**
+     * TODO Kiru: rename this to customer_position
+     */
     private Position deliveryPosition;
     private List<OrderProductDto> orderProducts;
     private String state;
