@@ -29,7 +29,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId 'ch.helin'
-            artifactId 'drone-server-messages'
+            artifactId 'commons'
             version '1.0'
 
             from components.java
