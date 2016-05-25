@@ -3,16 +3,23 @@ package ch.helin.messages.dto;
 import ch.helin.messages.dto.way.RouteDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MissionDto {
 
+    private UUID id;
     private String state;
-
     private RouteDto route;
-
     private OrderProductDto orderProduct;
-
     private List<DroneInfoDto> droneInfos;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public RouteDto getRoute() {
         return route;
@@ -38,6 +45,14 @@ public class MissionDto {
         this.droneInfos = droneInfos;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,25 +60,12 @@ public class MissionDto {
 
         MissionDto that = (MissionDto) o;
 
-        if (route != null ? !route.equals(that.route) : that.route != null) return false;
-        if (orderProduct != null ? !orderProduct.equals(that.orderProduct) : that.orderProduct != null) return false;
-        return droneInfos != null ? droneInfos.equals(that.droneInfos) : that.droneInfos == null;
+        return id != null ? id.equals(that.id) : that.id == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = route != null ? route.hashCode() : 0;
-        result = 31 * result + (orderProduct != null ? orderProduct.hashCode() : 0);
-        result = 31 * result + (droneInfos != null ? droneInfos.hashCode() : 0);
-        return result;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+        return id != null ? id.hashCode() : 0;
     }
 }
