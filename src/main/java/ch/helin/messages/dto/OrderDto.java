@@ -2,6 +2,7 @@ package ch.helin.messages.dto;
 
 import ch.helin.messages.dto.way.Position;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ public class OrderDto {
     private List<OrderProductDto> orderProducts;
     private String state;
     private List<MissionDto> missions;
+    private Date createdAt;
 
     public UUID getProjectId() {
         return projectId;
@@ -68,5 +70,13 @@ public class OrderDto {
 
     public void setCustomerPosition(Position customerPosition) {
         this.customerPosition = customerPosition;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
