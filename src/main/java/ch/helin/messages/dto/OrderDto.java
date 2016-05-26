@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class OrderDto {
+    private UUID id;
     private UUID projectId;
     private String customerName;
-    /**
-     * TODO Kiru: rename this to customer_position
-     */
-    private Position deliveryPosition;
+    private Position customerPosition;
     private List<OrderProductDto> orderProducts;
     private String state;
     private List<MissionDto> missions;
@@ -30,14 +28,6 @@ public class OrderDto {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public Position getDeliveryPosition() {
-        return deliveryPosition;
-    }
-
-    public void setDeliveryPosition(Position deliveryPosition) {
-        this.deliveryPosition = deliveryPosition;
     }
 
     public String getState() {
@@ -62,5 +52,21 @@ public class OrderDto {
 
     public void setOrderProducts(List<OrderProductDto> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Position getCustomerPosition() {
+        return customerPosition;
+    }
+
+    public void setCustomerPosition(Position customerPosition) {
+        this.customerPosition = customerPosition;
     }
 }
