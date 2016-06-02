@@ -20,7 +20,6 @@ public class FinalAssignMissionMessage extends Message {
         return mission;
     }
 
-
     public void setMission(MissionDto mission) {
         this.mission = mission;
     }
