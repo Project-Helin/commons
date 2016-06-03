@@ -1,9 +1,7 @@
 package ch.helin.messages.converter;
 
 import ch.helin.commons.AssertUtils;
-import ch.helin.messages.dto.message.DroneInfoMessage;
-import ch.helin.messages.dto.message.Message;
-import ch.helin.messages.dto.message.PayloadType;
+import ch.helin.messages.dto.message.*;
 import ch.helin.messages.dto.message.missionMessage.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +45,8 @@ public class JsonBasedMessageConverter implements MessageConverter {
                 return gson.fromJson(messageAsJson, NotifyCargoDrop.class);
             case DroneInfo:
                 return gson.fromJson(messageAsJson, DroneInfoMessage.class);
+            case DroneDto:
+                return gson.fromJson(messageAsJson, DroneDtoMessage.class);
             case AssignMission:
                 return gson.fromJson(messageAsJson, AssignMissionMessage.class);
             case FinalAssignMission:
@@ -55,9 +55,9 @@ public class JsonBasedMessageConverter implements MessageConverter {
                 return gson.fromJson(messageAsJson, ConfirmMissionMessage.class);
             case FinishedMission:
                 return gson.fromJson(messageAsJson, FinishedMissionMessage.class);
-
+            case DroneActiveState:
+                return gson.fromJson(messageAsJson, DroneActiveStateMessage.class);
         }
-
         throw new RuntimeException("Following Type is not registered as Message-PayloadType: " + String.valueOf(payloadType));
     }
 

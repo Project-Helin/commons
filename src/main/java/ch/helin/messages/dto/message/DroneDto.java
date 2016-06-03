@@ -18,6 +18,8 @@ public class DroneDto {
     private String organisationToken;
     private UUID projectID;
 
+    private boolean isActive;
+
     public UUID getId() {
         return id;
     }
@@ -73,5 +75,9 @@ public class DroneDto {
     public void setProjectID(UUID projectID) {
         this.projectID = projectID;
     }
+
+    public boolean isActive() { return this.isActive; }
+
+    public void setActive(boolean active) { this.isActive = active; }
 
 }

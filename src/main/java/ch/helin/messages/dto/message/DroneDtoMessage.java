@@ -7,7 +7,6 @@ public class DroneDtoMessage extends Message {
         super(PayloadType.DroneDto);
     }
 
-
     public DroneDto getDroneDto() {
         return droneDto;
     }
