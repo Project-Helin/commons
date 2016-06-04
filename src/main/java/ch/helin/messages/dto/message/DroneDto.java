@@ -80,4 +80,36 @@ public class DroneDto {
 
     public void setActive(boolean active) { this.isActive = active; }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DroneDto droneDto = (DroneDto) o;
+
+        if (payload != droneDto.payload) return false;
+        if (isActive != droneDto.isActive) return false;
+        if (id != null ? !id.equals(droneDto.id) : droneDto.id != null) return false;
+        if (name != null ? !name.equals(droneDto.name) : droneDto.name != null) return false;
+        if (token != null ? !token.equals(droneDto.token) : droneDto.token != null) return false;
+        if (lastKnownPosition != null ? !lastKnownPosition.equals(droneDto.lastKnownPosition) : droneDto.lastKnownPosition != null)
+            return false;
+        if (organisationToken != null ? !organisationToken.equals(droneDto.organisationToken) : droneDto.organisationToken != null)
+            return false;
+        return projectID != null ? projectID.equals(droneDto.projectID) : droneDto.projectID == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (token != null ? token.hashCode() : 0);
+        result = 31 * result + (lastKnownPosition != null ? lastKnownPosition.hashCode() : 0);
+        result = 31 * result + payload;
+        result = 31 * result + (organisationToken != null ? organisationToken.hashCode() : 0);
+        result = 31 * result + (projectID != null ? projectID.hashCode() : 0);
+        result = 31 * result + (isActive ? 1 : 0);
+        return result;
+    }
 }
