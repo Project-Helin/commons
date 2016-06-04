@@ -18,7 +18,7 @@ public class DroneDto {
     private String organisationToken;
     private UUID projectID;
 
-    private boolean isActive;
+    private boolean active;
 
     public UUID getId() {
         return id;
@@ -76,9 +76,13 @@ public class DroneDto {
         this.projectID = projectID;
     }
 
-    public boolean isActive() { return this.isActive; }
+    public boolean isActive() {
+        return active;
+    }
 
-    public void setActive(boolean active) { this.isActive = active; }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,7 +92,7 @@ public class DroneDto {
         DroneDto droneDto = (DroneDto) o;
 
         if (payload != droneDto.payload) return false;
-        if (isActive != droneDto.isActive) return false;
+        if (active != droneDto.active) return false;
         if (id != null ? !id.equals(droneDto.id) : droneDto.id != null) return false;
         if (name != null ? !name.equals(droneDto.name) : droneDto.name != null) return false;
         if (token != null ? !token.equals(droneDto.token) : droneDto.token != null) return false;
@@ -109,7 +113,7 @@ public class DroneDto {
         result = 31 * result + payload;
         result = 31 * result + (organisationToken != null ? organisationToken.hashCode() : 0);
         result = 31 * result + (projectID != null ? projectID.hashCode() : 0);
-        result = 31 * result + (isActive ? 1 : 0);
+        result = 31 * result + (active ? 1 : 0);
         return result;
     }
 }
