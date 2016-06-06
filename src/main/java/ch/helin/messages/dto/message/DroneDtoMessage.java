@@ -14,4 +14,21 @@ public class DroneDtoMessage extends Message {
     public void setDroneDto(DroneDto droneDto) {
         this.droneDto = droneDto;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DroneDtoMessage that = (DroneDtoMessage) o;
+
+        return droneDto != null ? droneDto.equals(that.droneDto) : that.droneDto == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return droneDto != null ? droneDto.hashCode() : 0;
+    }
+
 }

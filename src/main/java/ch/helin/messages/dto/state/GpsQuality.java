@@ -5,8 +5,8 @@ public enum GpsQuality {
     _2D (2, "2D"),
     _3D (3, "3D");
 
-    private int legacyGpsStateInteger;
-    private String description;
+    private final int legacyGpsStateInteger;
+    private final String description;
 
     GpsQuality(int legacyGpsStateInteger, String description) {
         this.legacyGpsStateInteger = legacyGpsStateInteger;
