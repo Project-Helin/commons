@@ -20,12 +20,22 @@ public class DroneDto {
 
     private boolean active;
 
+    private RabbitMqInformation rabbitMqInformation;
+
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public RabbitMqInformation getRabbitMqInformation() {
+        return rabbitMqInformation;
+    }
+
+    public void setRabbitMqInformation(RabbitMqInformation rabbitMqInformation) {
+        this.rabbitMqInformation = rabbitMqInformation;
     }
 
     public String getName() {
@@ -100,7 +110,8 @@ public class DroneDto {
             return false;
         if (organisationToken != null ? !organisationToken.equals(droneDto.organisationToken) : droneDto.organisationToken != null)
             return false;
-        return projectID != null ? projectID.equals(droneDto.projectID) : droneDto.projectID == null;
+        if (projectID != null ? !projectID.equals(droneDto.projectID) : droneDto.projectID != null) return false;
+        return rabbitMqInformation != null ? rabbitMqInformation.equals(droneDto.rabbitMqInformation) : droneDto.rabbitMqInformation == null;
 
     }
 
@@ -114,6 +125,7 @@ public class DroneDto {
         result = 31 * result + (organisationToken != null ? organisationToken.hashCode() : 0);
         result = 31 * result + (projectID != null ? projectID.hashCode() : 0);
         result = 31 * result + (active ? 1 : 0);
+        result = 31 * result + (rabbitMqInformation != null ? rabbitMqInformation.hashCode() : 0);
         return result;
     }
 }
